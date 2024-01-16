@@ -1,0 +1,25 @@
+.loginSection {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url(../../assets/login-bg-1.svg);
+  background-repeat: no-repeat;
+ background-size: 100%;
+ background-position: top;
+}
+
+.loginContainer {
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.forgetPass{
+  float: right;
+  cursor: pointer;
+}
