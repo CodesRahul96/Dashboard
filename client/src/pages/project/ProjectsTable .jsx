@@ -8,7 +8,7 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
   };
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive projectTable">
       <table className="table">
         <thead>
           <tr>

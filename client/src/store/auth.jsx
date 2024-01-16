@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
-// const API = import.meta.env.VITE.APP.API;
+// const API = import.meta.env.VITE_APP_URI_API;
 const API = "http://localhost:5000";
 
 // eslint-disable-next-line react/prop-types

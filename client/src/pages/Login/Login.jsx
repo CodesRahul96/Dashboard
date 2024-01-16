@@ -8,10 +8,7 @@ import { useAuth } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const {API} = useAuth();
-  console.log(API);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { API } = useAuth();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -20,9 +17,10 @@ export const Login = () => {
     email: "",
     password: "",
   });
+
   const { storeTokenInLS } = useAuth();
   const navigate = useNavigate();
-  // let handle the input field value
+
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -31,17 +29,23 @@ export const Login = () => {
       ...user,
       [name]: value,
     });
+
+    // Call validation functions whenever user types
+    if (name === "email") {
+      validateEmail();
+    } else if (name === "password") {
+      validatePassword();
+    }
   };
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const validDomains = [".com", ".in", ".org"];
 
-    const validDomains = [".com", ".in", ".org"]; // Add more valid domains as needed
-
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(user.email)) {
       setEmailError("Please enter a valid email address.");
     } else {
-      const domain = email.substring(email.lastIndexOf("."));
+      const domain = user.email.substring(user.email.lastIndexOf("."));
       if (!validDomains.includes(domain)) {
         setEmailError("Valid email domains are .com, .in");
       } else {
@@ -51,48 +55,50 @@ export const Login = () => {
   };
 
   const validatePassword = () => {
-    if (password.length < 6) {
+    if (user.password.length < 6) {
       setPasswordError("Password must be at least 6 characters long.");
     } else {
       setPasswordError("");
     }
   };
 
-  // Handle Submit Data
   const handleSubmit = async (e) => {
-    const URL = `${API}/auth/login`;
     e.preventDefault();
-    try {
-      const response = await fetch(URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
 
-      // console.log("login form", response);
-      const res_data = await response.json();
-      // console.log("response from login server", res_data.token);
+    // Validate email and password before submitting
+    validateEmail();
+    validatePassword();
 
-      if (response.ok) {
-        // alert("Login Successful");
-        alert("Login Successful");
-        storeTokenInLS(res_data.token);
-        setUser({
-          email: "",
-          password: "",
+    // Check if there are any validation errors
+    if (!emailError && !passwordError) {
+      const URL = `${API}/auth/login`;
+
+      try {
+        const response = await fetch(URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
         });
-        navigate("/projects");
-        location.reload();
-      } else {
-        alert(
-          res_data.extraDetails ? res_data.extraDetails : res_data.message
-        );
-        // console.log("Invalid Credentials");
+
+        const res_data = await response.json();
+
+        if (response.ok) {
+          alert("Login Successful");
+          storeTokenInLS(res_data.token);
+          setUser({
+            email: "",
+            password: "",
+          });
+          navigate("/projects");
+          location.reload();
+        } else {
+          alert(res_data.extraDetails ? res_data.extraDetails : res_data.message);
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
       }
-    } catch (error) {
-      // console.log("login", error);
     }
   };
 
@@ -104,9 +110,7 @@ export const Login = () => {
         <span className="text-white">Online Project Management</span>
       </div>
       <div className="loginContainer">
-        <h5 className="text-center mt-3 mb-4 text-secondary">
-          Login to get started
-        </h5>
+        <h5 className="text-center mt-3 mb-4 text-secondary">Login to get started</h5>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email:
