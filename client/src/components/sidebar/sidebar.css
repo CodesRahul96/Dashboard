@@ -1,109 +1,142 @@
 /* src/components/Sidebar.css */
+
 .sidebar {
-    position: fixed;
-    background-color: #fff;
-    color: #333;
-    overflow: hidden;
+  position: fixed;
+  background-color: #fff;
+  color: #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 90vh;
+  width: 80px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.sidebaritems {
+  /* flex: 1; */
+  ul {
+    list-style-type: none;
+    padding: 0;
     display: flex;
-    justify-content: space-around;
+    gap: 2rem;
     flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    width: 55px;
+    height: 30px;
+  }
+
+  span {
+    margin-top: 5px;
+  }
+
+  .sideLine {
     height: 100%;
-    width: 80px;
+    width: 3px;
+    border: 3px solid blue;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: none; /* Hide by default */
   }
-  
-  .logo {
-    padding: 10px;
-    text-align: center;
-    font-size: 1.5em;
+
+  li.active .sideLine {
+    display: block; /* Show only when li is active */
   }
-  
-  .sidebaritems {
-    /* flex: 1; */
-    ul {
-      list-style-type: none;
-      padding: 0;
-      display: flex;
-      gap: 2rem;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    li {
-      margin-bottom: 10px;
-      text-align: center;
-    }
-  
-    a {
-      text-decoration: none;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    img {
-        width: 55px;
-        height: 30px;
-    }
-  
-    span {
-      margin-top: 5px;
-    }
-  }
-  
-  .logout {
-    text-align: center;
-    padding: 10px;
-    background-color: #fff;
-  }
-  .logout:hover{
-    box-shadow: inset gray 0px 0px 60px -12px;
-  }
-  
-  /* src/components/Sidebar.css */
+}
+
+.logout a > img {
+  width: 100%;
+  height: 30px;
+}
+
 .sidebaritems ul li.active {
-    /* box-shadow: inset rgb(184, 184, 255) 0px 0px 60px -12px; */
-    border-left: 5px solid rgb(184, 184, 255); /* Set your desired border color */
+  border-left: 2px solid blue;
+  /* Set your desired border color */
+  border-radius: 0% 10% 10% 0% / 0% 10% 10% 0%;
+}
+
+.separator {
+  width: 70%;
+  border-top: 4px solid #4c4a4a;
+  margin: 10px 0;
+}
+
+.projects-li {
+  margin-bottom: 10px;
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1000;
+  }
+
+  li.active .sideLine {
+    display: none;
+}
+
+  .sidebar .sidebaritems {
+    align-items: center;
   }
   
-  /* Media query for mobile view */
-  @media (max-width: 768px) {
-    .sidebar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 90px;
-      z-index: 1000; /* Ensure it's on top of other elements */
-    }
-  
-    .sidebar .sidebaritems {
-      align-items: center; /* Center items for mobile view */
-    }
-    .sidebaritems ul{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        flex-direction: row;
-    }
+  .sidebaritems ul {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+  }
 
-    .logo{
-        display: none;
-    }
+  .sidebaritems ul li {
+  height: 0;
+  width: 0;
+  display: block;
+    border-bottom: 2px slid;
+  }
 
-    .logout{
-        position: fixed;
-        top: 5px;
-        right: 5px;
-    }
-    img {
-      width: 50px;
-      height: 40px;
-    }
-  
-    .sidebaritems ul li.active {
-        border-left: 0; /* Set your desired border color */
-        border-bottom: 5px solid rgb(184, 184, 255); /* Set your desired border color */
-      }
+  .separator {
+    display: none;
+  }
+
+  .logout {
+    display: none;
   }
   
+  .sideLine{
+    display: none;
+  }
+
+ 
+}

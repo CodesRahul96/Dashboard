@@ -1,0 +1,134 @@
+.createDashboard{
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url(../../assets/Header-bg.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+}
+.createContainer {
+    padding: 40px 60px;
+  }
+  .topbarContainer h2 {
+    color: #fff;
+  }
+  
+  .topbarContainer > .logo {
+    position: absolute;
+    top: 0;
+    right: 50%;
+  }
+  .topbarContent {
+    display: flex;
+    align-items: center;
+  }
+  .backButton img {
+    width: 55px;
+    height: 30px;
+  }
+  
+  .formContainer{
+    position: relative;
+    margin-left: 80px;
+    height: 100%;
+    width: 90%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .formContainer form {
+    margin: 20px;
+  }
+  .formContainer form input{
+    width: 25rem;
+  }
+  .formContainer form .projectName{
+    width: 40rem;
+    height: 4rem;
+  }
+  .formContainer form select{
+    width: 25rem;
+  }
+  .formContainer form button{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+  }
+  .formContainer form .status {
+    font-weight: bold;
+  }
+
+  .crateLogout{
+    display: none;
+  }
+
+  
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .createContainer {
+    margin: 0;
+    padding: 10px 0px;
+  }
+
+  .formContainer{
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 0;
+    margin-bottom: 7rem;
+    box-shadow: none;
+  }
+  .formContainer form{
+    margin: 20px;
+  }
+  
+  .formContainer form .projectName{
+    width: 90vw;
+    padding: 18px;
+  }
+  .formContainer form select{
+    width: 90vw;
+    padding: 18px;
+  }
+  .formContainer form .col{
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .formContainer form button{
+    width: 90vw;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+  }
+  .formContainer form .status {
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .formContainer form input[type=date]{
+    width: 90vw;
+    padding: 18px;
+  }
+  .crateLogout {
+    display: block;
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    /* background-color: rgb(110, 95, 95); */
+}
+.crateLogout img{
+  width: 40px;
+}
+
+}

@@ -1,0 +1,85 @@
+.ProjectDashboard {
+  width: 100%;
+  height: 100vh;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url(../../assets/Header-bg.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+}
+
+.projectContainer {
+  padding: 40px 60px;
+}
+
+.projectTableBox {
+  width: 100%;
+}
+
+.topbarContainer {
+  padding: 40px 60px;
+}
+.topbarContainer h2 {
+  color: #fff;
+}
+.topbarContent {
+  color: #fff;
+  margin-bottom: 5rem;
+}
+.topbarContent > .logo {
+  position: absolute;
+  top: 0;
+  right: 50%;
+}
+.topbarContent {
+  display: flex;
+  align-items: center;
+}
+.backButton img {
+  width: 55px;
+  height: 30px;
+}
+
+.topProjectContainer {
+  margin-left: 80px;
+  width: 90%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.topInputs {
+  width: 95%;
+  margin: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .projectContainer{
+    padding: 10px 0px;
+  }
+  
+  .topProjectContainer{
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 7rem;
+  }
+  .topbarContent{
+    width: 100%;
+    position: relative;
+  }
+  
+  .logo{
+    display: none;
+  }
+  
+}

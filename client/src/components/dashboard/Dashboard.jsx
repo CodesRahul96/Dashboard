@@ -1,8 +1,13 @@
-// src/components/Dashboard.js
+import "./dashboard.css";
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useAuth } from "../../store/auth";
+import { Link } from "react-router-dom";
+import BackButton from "../../assets/back-arrow.svg";
+import Logo from "../../assets/Logo.svg";
+import Logout from "../../assets/Logout.svg";
+
 
 function Dashboard() {
   const [projectData, setProjectData] = useState([]);
@@ -19,7 +24,7 @@ function Dashboard() {
   console.log("Dashboard", project);
 
   useEffect(() => {
-    const mockData = [ ...project ];
+    const mockData = [...project];
 
     setProjectData(mockData);
 
@@ -64,10 +69,21 @@ function Dashboard() {
         type: "column",
       },
       title: {
-        text: "Total and Closed Projects by Department",
+        text: "",
       },
       xAxis: {
-        categories: Object.keys(departmentCounts),
+        categories: Object.keys(departmentCounts).map((department) => {
+          // Abbreviate department names
+          const abbreviations = {
+            finance: "FIN",
+            quality: "QLT",
+            maintenance: "MAN",
+            stores: "STO",
+            startegy: "STR",
+            // Add more department abbreviations as needed
+          };
+          return abbreviations[department] || department;
+        }),
         title: {
           text: "Department",
         },
@@ -93,17 +109,71 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <div className="counters">
-        <div>Total Projects: {counterData.totalProjects}</div>
-        <div>Closed Projects: {counterData.closedProjects}</div>
-        <div>Running Projects: {counterData.runningProjects}</div>
-        <div>Canceled Projects: {counterData.canceledProjects}</div>
-        <div>Closure Delay Projects: {counterData.closureDelayProjects}</div>
-      </div>
-      <div className="chart mt-3">
-        {projectData.length > 0 ? renderChart() : <p>Loading data...</p>}
+    <div className="dashboard">
+      <div className="topbarContainer">
+        <div className="topbarContent">
+          <Link to="/projects" className="backButton">
+            <img src={BackButton} alt="back" />
+          </Link>
+          <h2>Dashboard</h2>
+          <div className="logo">
+            <img src={Logo} alt="logo" />
+          </div>
+          <div className="crateLogout">
+            <Link to="/logout">
+              <img src={Logout} alt="Logout" />
+            </Link>
+          </div>
+        </div>
+        <div className="counters mb-4">
+          <div
+            className="counter"
+            style={{ borderLeft: "4px solid #3498db", paddingLeft: "10px" }}
+          >
+            <div>
+              <h5>Total Project</h5> <h1>{counterData.totalProjects}</h1>
+            </div>
+          </div>
+          <div
+            className="counter"
+            style={{ borderLeft: "4px solid #3498db", paddingLeft: "10px" }}
+          >
+            <div>
+              <h5>Closed</h5> <h1>{counterData.closedProjects}</h1>
+            </div>
+          </div>
+          <div
+            className="counter"
+            style={{ borderLeft: "4px solid #3498db", paddingLeft: "10px" }}
+          >
+            <div className="conterItems">
+              <h5>Running</h5> <h1>{counterData.runningProjects}</h1>
+            </div>
+          </div>
+          <div
+            className="counter"
+            style={{ borderLeft: "4px solid #3498db", paddingLeft: "10px" }}
+          >
+            <div>
+              <h5>Canceled</h5> <h1>{counterData.canceledProjects}</h1>
+            </div>
+          </div>
+          <div
+            className="counter"
+            style={{ borderLeft: "4px solid #3498db", paddingLeft: "10px" }}
+          >
+            <div>
+              <h5>Closure Delay</h5>
+              <h1>{counterData.closureDelayProjects}</h1>
+            </div>
+          </div>
+        </div>
+        <div className="container-fluid chart-container mb-3">
+          <h3>Department wise - Total Vs Closed</h3>
+          <div className="chart mt-3">
+            {projectData.length > 0 ? renderChart() : <p>Loading data...</p>}
+          </div>
+        </div>
       </div>
     </div>
   );

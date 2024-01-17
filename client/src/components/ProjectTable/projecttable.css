@@ -1,0 +1,105 @@
+/* Table */
+
+.projectTable{
+    width: 95%;
+    text-transform: capitalize;
+  }
+  
+  
+  .topTable{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .admin-users-section {
+    padding: 2rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  .table {
+    color: #000;
+  }
+  
+  th,
+  td {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-align: start;
+  }
+  
+  /* th {
+      text-align: center;
+  } */
+  
+  thead {
+    th {
+      background-color: #6975ad;
+    }
+  }
+  
+  tbody {
+    text-transform: capitalize;
+    align-items: flex-start;
+    td {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    td {
+      position: relative;
+      &:hover {
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: -9999px;
+          bottom: -9999px;
+          /* background-color: rgba(255,255,255,0.2); */
+          z-index: -1;
+        }
+      }
+    }
+  }
+
+  .tableStatus, .tableProjectName{
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    thead {
+      th {
+        display: none;
+      }
+    }
+
+    .card{
+      position: relative;
+    }
+    .card-text > .status{
+      position: absolute;
+      top: 3%;
+      right: 5%;
+    }
+
+    .card .card-title{
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .card .card-text{
+      font-size: 1.3rem;
+    }
+
+    .btn-group {
+      width: 100%;
+    }
+    }

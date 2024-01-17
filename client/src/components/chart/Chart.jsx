@@ -4,8 +4,8 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useAuth } from '../../store/auth';
 
-function Chart() {
-  const {API} = useAuth();
+function ChartCard() {
+  const { API } = useAuth();
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -43,13 +43,17 @@ function Chart() {
   };
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <div id="departmentChart" style={{ height: '400px' }}>
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+    <div className="card">
+      <div className="card-header">
+        <h5 className="card-title">Dashboard</h5>
+      </div>
+      <div className="card-body">
+        <div id="departmentChart" style={{ height: '300px' }}>
+          <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        </div>
       </div>
     </div>
   );
 }
 
-export default Chart;
+export default ChartCard;

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import "./projectTable.css";
 import React from "react";
 
 const ProjectsTable = ({ projectData, onUpdateStatus }) => {
@@ -10,7 +10,7 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
   return (
     <div className="table-responsive projectTable">
       <table className="table">
-        <thead>
+        <thead className="table-secondary">
           <tr>
             <th>Project Name</th>
             <th>Department</th>
@@ -21,7 +21,7 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
             <th>Division</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -47,7 +47,8 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
                       <br />
                       <strong>Location:</strong> {project.location}
                       <br />
-                      <strong>Status:</strong> {project.status}
+                      <span className="status">
+                      <strong >Status:</strong> {project.status}</span>
                       <br />
                       <strong>Dates:</strong> {formatDate(project.startDate)} to {formatDate(project.endDate)}
                     </p>
@@ -55,10 +56,10 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
                       <button className="btn btn-primary" onClick={() => onUpdateStatus(project._id, "Running")}>
                         Start
                       </button>
-                      <button className="btn btn-success" onClick={() => onUpdateStatus(project._id, "Closed")}>
+                      <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Closed")}>
                         Close
                       </button>
-                      <button className="btn btn-danger" onClick={() => onUpdateStatus(project._id, "Canceled")}>
+                      <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Canceled")}>
                         Cancel
                       </button>
                     </div>
@@ -71,7 +72,7 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
               <td>
                 <div>
                   <p>
-                    {project.projectName} <br /> -{" "}
+                    <h6 className="tableProjectName">{project.projectName}</h6>-{" "}
                     {formatDate(project.startDate)} to {formatDate(project.endDate)}
                   </p>
                 </div>
@@ -83,15 +84,15 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
               <td>{project.type}</td>
               <td>{project.division}</td>
               <td>{project.location}</td>
-              <td>{project.status}</td>
+              <td className="tableStatus">{project.status}</td>
               <td>
                 <button className="btn btn-primary" onClick={() => onUpdateStatus(project._id, "Running")}>
                   Start
                 </button>
-                <button className="btn btn-success" onClick={() => onUpdateStatus(project._id, "Closed")}>
+                <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Closed")}>
                   Close
                 </button>
-                <button className="btn btn-danger" onClick={() => onUpdateStatus(project._id, "Canceled")}>
+                <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Canceled")}>
                   Cancel
                 </button>
               </td>
