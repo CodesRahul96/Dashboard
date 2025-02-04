@@ -1,5 +1,3 @@
-/* src/components/Sidebar.css */
-
 .sidebar {
   position: fixed;
   background-color: #fff;
@@ -8,15 +6,16 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  height: 90vh;
-  width: 80px;
+  height: 100%;
+  width: 70px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-  padding: 10px;
-  text-align: center;
-  font-size: 1.5em;
+  img{
+    height: 5px;
+    width: 5px;
+  }
 }
 
 .sidebaritems {
@@ -46,18 +45,18 @@
   }
 
   img {
-    width: 55px;
-    height: 30px;
+    height: 28px;
+    width: 40px;
   }
 
   span {
     margin-top: 5px;
   }
 
-  .sideLine {
-    height: 100%;
+  .sideLineUp {
     width: 3px;
-    border: 3px solid blue;
+    height: 100%;
+    border: 3px solid#025AAB;
     position: absolute;
     left: 0;
     top: 0;
@@ -66,14 +65,24 @@
     display: none; /* Hide by default */
   }
 
-  li.active .sideLine {
+  .sideLineDown {
+    display: none; /* Hide by default */
+  }
+
+  li.active .sideLineUp {
     display: block; /* Show only when li is active */
+  }
+  li.active .sideLineDown {
+    display: none; /* Show only when li is active */
   }
 }
 
 .logout a > img {
+  height: 28px;
   width: 100%;
-  height: 30px;
+}
+.logout:hover a > img {
+  filter: brightness(0) invert(0);
 }
 
 .sidebaritems ul li.active {
@@ -95,48 +104,66 @@
 /* Media query for mobile view */
 @media (max-width: 768px) {
   .sidebar {
+    border-radius: 25px;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 80px;
+    width: 100vw;
+    height: 70px;
     z-index: 1000;
-  }
 
-  li.active .sideLine {
-    display: none;
-}
+    .logo {
+      display: none;
+    }
 
-  .sidebar .sidebaritems {
-    align-items: center;
-  }
-  
-  .sidebaritems ul {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-  }
+    .sidebaritems {
+      align-items: center;
 
-  .sidebaritems ul li {
-  height: 0;
-  width: 0;
-  display: block;
-    border-bottom: 2px slid;
-  }
+      ul {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: row;
 
-  .separator {
-    display: none;
-  }
+        li {
+          height: 0;
+          width: 0;
+          display: block;
+          border-bottom: 2px solid #025aab;
 
-  .logout {
-    display: none;
-  }
-  
-  .sideLine{
-    display: none;
-  }
+          img {
+            height: 25px;
+            width: 40px;
+          }
 
- 
+          .sideLineUp {
+            display: none;
+          }
+          .sideLineDown {
+            display: block;
+          }
+        }
+        li.active .sideLineUp {
+          display: none;
+        }
+        li.active .sideLineDown {
+          display: block;
+          width: 50px;
+          height: 3px;
+          border: 5px solid#025AAB;
+          margin-top: 1rem;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+        .separator {
+          display: none;
+        }
+      }
+    }
+    .logout {
+      display: none;
+    }
+  }
 }

@@ -1,6 +1,7 @@
-import "./projectTable.css";
 import React from "react";
+import "./projecttable.css";
 
+// eslint-disable-next-line react/prop-types
 const ProjectsTable = ({ projectData, onUpdateStatus }) => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
@@ -10,7 +11,7 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
   return (
     <div className="table-responsive projectTable">
       <table className="table">
-        <thead className="table-secondary">
+        <thead className="table-primary">
           <tr>
             <th>Project Name</th>
             <th>Department</th>
@@ -24,79 +25,128 @@ const ProjectsTable = ({ projectData, onUpdateStatus }) => {
             <th> </th>
           </tr>
         </thead>
-        <tbody>
-          {projectData.map((project) => (
+        <tbody >
+          {projectData.map((project, index) => (
             <>
-            <tr key={project._id} className="d-md-none">
-              <td colSpan="10">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">{project.projectName}</h5>
-                    <p className="card-text">
-                      <strong>Department:</strong> {project.department}
-                      <br />
-                      <strong>Reason:</strong> {project.reason}
-                      <br />
-                      <strong>Category:</strong> {project.category}
-                      <br />
-                      <strong>Priority:</strong> {project.priority}
-                      <br />
-                      <strong>Type:</strong> {project.type}
-                      <br />
-                      <strong>Division:</strong> {project.division}
-                      <br />
-                      <strong>Location:</strong> {project.location}
-                      <br />
-                      <span className="status">
-                      <strong >Status:</strong> {project.status}</span>
-                      <br />
-                      <strong>Dates:</strong> {formatDate(project.startDate)} to {formatDate(project.endDate)}
-                    </p>
-                    <div className="btn-group" role="group">
-                      <button className="btn btn-primary" onClick={() => onUpdateStatus(project._id, "Running")}>
-                        Start
-                      </button>
-                      <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Closed")}>
-                        Close
-                      </button>
-                      <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Canceled")}>
-                        Cancel
-                      </button>
+              {/* Mobile view */}
+              <tr key={project._id} className="d-md-none mobile_container">
+                <td className="mobile_card">
+                  <div className="mobile_content">
+                    <div className="card_content">
+                      <div className="card_name">
+                        <div className="card_title">
+                          {project.projectName}
+                        </div>
+                        <div className="card_date">
+                          {formatDate(project.startDate)} to{" "}
+                          {formatDate(project.endDate)}
+                        </div>
+                      </div>
+
+                      <div className="card_text">
+                        <span className="card_soft_title">Reason:
+                        <span>{project.reason} </span></span>
+
+                        <span className="card_soft_title">Dept:
+                        <span>{project.department}</span></span>
+
+                        <span className="card_soft_title">Category:
+                        <span>{project.category} </span>
+
+                        <span className="card_soft_title">Priority:</span>
+                        <span>{project.priority} </span></span>
+
+                        <span className="card_soft_title">Type:
+                        <span>{project.type} </span></span>
+
+                        <span className="card_soft_title">Div:
+                        <span>{project.division} </span></span>
+
+                        <span className="card_soft_title">Location:
+                        <span>{project.location} </span></span>
+
+                        <span className="card_status">{project.status}</span>
+                      </div>
+                      <div className="btn-group" role="group">
+                        <button
+                          className="btns btns-start"
+                          onClick={() => onUpdateStatus(project._id, "Running")}
+                        >
+                          Start
+                        </button>
+                        <button
+                          className="btns btns-close"
+                          onClick={() => onUpdateStatus(project._id, "Closed")}
+                        >
+                          Close
+                        </button>
+                        <button
+                          className="btns btns-cancel"
+                          onClick={() =>
+                            onUpdateStatus(project._id, "Canceled")
+                          }
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <tr key={project._id} className="d-none d-md-table-row">
-              {/* Render table row for screens larger than or equal to md size */}
-              <td>
-                <div>
-                  <p>
-                    <h6 className="tableProjectName">{project.projectName}</h6>-{" "}
-                    {formatDate(project.startDate)} to {formatDate(project.endDate)}
-                  </p>
-                </div>
-              </td>
-              <td>{project.department}</td>
-              <td>{project.reason}</td>
-              <td>{project.category}</td>
-              <td>{project.priority}</td>
-              <td>{project.type}</td>
-              <td>{project.division}</td>
-              <td>{project.location}</td>
-              <td className="tableStatus">{project.status}</td>
-              <td>
-                <button className="btn btn-primary" onClick={() => onUpdateStatus(project._id, "Running")}>
-                  Start
-                </button>
-                <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Closed")}>
-                  Close
-                </button>
-                <button className="btn btn-outline-primary" onClick={() => onUpdateStatus(project._id, "Canceled")}>
-                  Cancel
-                </button>
-              </td>
-            </tr>
+                </td>
+              </tr>
+
+              {/* Desktop view */}
+              <tr
+                key={index}
+                className="d-none d-md-table-row desktop-table"
+              >
+                <td>
+                  <div className="desktop_name">
+                  <span className="tableProjectName">
+                        {project.projectName}
+                      </span>
+
+                      <span className="table_date">
+                        {formatDate(project.startDate)} to{" "}
+                        {formatDate(project.endDate)}
+                      </span>
+                  </div>
+                </td>
+                <td>{project.department}</td>
+                <td>{project.reason}</td>
+                <td>{project.category}</td>
+                <td>{project.priority}</td>
+                <td>{project.type}</td>
+                <td>{project.division}</td>
+                <td>{project.location}</td>
+                <td
+                  className="tableStatus"
+                  style={{ color: "#00284C", fontSize: "16px" }}
+                >
+                  {project.status}
+                </td>
+                <td>
+                  <div className="projectButtons">
+                  <button
+                    className="btns btns-start"
+                    onClick={() => onUpdateStatus(project._id, "Running")}
+                  >
+                    Start
+                  </button>
+                  <button
+                    className="btns btns-close"
+                    onClick={() => onUpdateStatus(project._id, "Closed")}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="btns btns-cancel"
+                    onClick={() => onUpdateStatus(project._id, "Canceled")}
+                  >
+                    Cancel
+                  </button>
+                  </div>
+                </td>
+              </tr>
             </>
           ))}
         </tbody>

@@ -1,20 +1,22 @@
 import "./createProject.css";
 import React, { useState } from "react";
 import { useAuth } from "../../store/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BackButton from "../../assets/back-arrow.svg";
 import Logo from "../../assets/Logo.svg";
 import Logout from "../../assets/Logout.svg";
 import { toast } from "react-toastify";
 
 const CreateProject = () => {
-  const { API } = useAuth();
+  const { URI } = useAuth();
+  const navigate = useNavigate();
+  document.title = "Create Project";
 
   const initialProjectState = {
     projectName: "",
     department: "maintenance",
     reason: "business",
-    category: "quality-A",
+    category: "quality A",
     priority: "high",
     type: "internal",
     division: "filters",
@@ -25,6 +27,8 @@ const CreateProject = () => {
   };
 
   const [project, setProject] = useState(initialProjectState);
+  const [dateError, setDateError] = useState("");
+  const [projectNameError, setProjectNameError] = useState("");
 
   //lets tackle Input Form
   const handleInput = (e) => {
@@ -36,242 +40,263 @@ const CreateProject = () => {
   //lets tackle Submit Form
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if the start date is greater than the end date
-    if (new Date(project.startDate) > new Date(project.endDate)) {
-      toast.error("End date must be equal to or after the start date.");
+  
+    if (!project.projectName) {
+      setProjectNameError('Project Theme is required');
       return; // Prevent submission
     }
-
+  
+    // Check if the start date is greater than the end date
+    if (new Date(project.startDate) > new Date(project.endDate)) {
+      setDateError("End date is smaller than the start date");
+      toast.error("End date is smaller than the start date");
+      return; // Prevent submission
+    }
+  
     try {
-      const response = await fetch(`${API}/api/projects/create`, {
+      const response = await fetch(`${URI}/api/project/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(project),
       });
-
+  
       console.log("response: ", response);
-
+  
       if (response.ok) {
         setProject(initialProjectState);
+        setProjectNameError(""); // Reset the error when successful
         const data = await response.json();
         toast.success("Project Saved");
         console.log(data);
+        navigate("/projects");
       }
     } catch (error) {
       toast.error(error);
     }
   };
+  
+  
 
   return (
     <div className="createDashboard">
       <div className="createContainer">
-        <div className="topbarContent">
-          <Link to="/projects" className="backButton">
-            <img src={BackButton} alt="back" />
-          </Link>
-          <h2>Create Project</h2>
-          <div className="logo">
+        {/* Topbar Content */}
+        <div className="createContent">
+          <div className="createProjectName">
+            <Link to="/" className="backButton">
+              <img src={BackButton} alt="back" />
+            </Link>
+            <span className="name">Create Project</span>
+          </div>
+          <div className="logoContainer">
             <img src={Logo} alt="logo" />
           </div>
-          <div className="crateLogout">
+          <div className="createLogout">
             <Link to="/logout">
               <img src={Logout} alt="Logout" />
             </Link>
           </div>
         </div>
-        <div className="formContainer">
-          <form onSubmit={handleProjectSubmit} className="form row mt-4">
-            <div className="row g-0">
-              <div className="col-sm-6 col-md-8">
+
+        {/* project Form  */}
+        <div className="form-wrapper">
+          <form onSubmit={handleProjectSubmit} className="form-container">
+            {/* Project Name: */}
+            <div className="wrapper">
+              <div className="name-container">
                 <label className="form-label">
                   {/* Project Name: */}
-                  <input
-                    placeholder="Enter Project Theme"
-                    type="text"
-                    className="form-control projectName "
-                    name="projectName"
-                    value={project.projectName}
-                    onChange={handleInput}
-                    required
-                  />
                 </label>
+                <input
+                  placeholder="Enter Project Theme"
+                  type="text"
+                  className={`project-name-input ${projectNameError ? 'error' : ''}`}
+                  name="projectName"
+                  value={project.projectName}
+                  onChange={handleInput}
+                  // required
+                />
+                {projectNameError && (
+                  <p className="text-danger">{projectNameError}</p>
+                )}
+              </div>
+              <div className="btn-1">
+                <button type="submit" className="save-button">
+                  Save Project
+                </button>
               </div>
             </div>
 
-            <div className="row md-4 mt-4">
-              <div className="col">
-                <label className="form-label">
-                  Reason:
-                  <select
-                    className="form-select"
-                    name="reason"
-                    value={project.reason}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="business">For Business</option>
-                    <option value="personal">For Personal</option>
-                    <option value="dealership">For Dealership</option>
-                    <option value="transport">For Transport</option>
-                  </select>
-                </label>
+            {/* Project Reason: */}
+            <div className="wrapper">
+              <div className="select-container">
+                <label className="form-label">Reason:</label>
+                <select
+                  className="form-select"
+                  name="reason"
+                  value={project.reason}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="business">For Business</option>
+                  <option value="personal">For Personal</option>
+                  <option value="dealership">For Dealership</option>
+                  <option value="transport">For Transport</option>
+                </select>
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  Type:
-                  <select
-                    className="form-select"
-                    name="type"
-                    value={project.type}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="internal">Internal</option>
-                    <option value="external">External</option>
-                    <option value="vendor">Vendor</option>
-                  </select>
-                </label>
+              {/* Project Type: */}
+              <div className="select-container">
+                <label className="form-label">Type:</label>
+                <select
+                  className="form-select"
+                  name="type"
+                  value={project.type}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="internal">Internal</option>
+                  <option value="external">External</option>
+                  <option value="vendor">Vendor</option>
+                </select>
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  Division:
-                  <select
-                    className="form-select"
-                    name="division"
-                    value={project.division}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="filters">Filters</option>
-                    <option value="compressor">Compressor</option>
-                    <option value="pumps">Pumps</option>
-                    <option value="glass">Glass</option>
-                    <option value="water heater">Water Heater</option>
-                  </select>
-                </label>
+              {/* Project Division: */}
+              <div className="select-container">
+                <label className="form-label">Division:</label>
+                <select
+                  className="form-select"
+                  name="division"
+                  value={project.division}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="filters">Filters</option>
+                  <option value="compressor">Compressor</option>
+                  <option value="pumps">Pumps</option>
+                  <option value="glass">Glass</option>
+                  <option value="water heater">Water Heater</option>
+                </select>
               </div>
             </div>
 
-            <div className="row md-4 mt-4">
-              <div className="col">
-                <label className="form-label">
-                  Category:
-                  <select
-                    className="form-select"
-                    name="category"
-                    value={project.category}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="quality-A">Quality A</option>
-                    <option value="quality-B">Quality B</option>
-                    <option value="quality-C">Quality C</option>
-                    <option value="quality-D">Quality D</option>
-                  </select>
-                </label>
+            {/* Project Category: */}
+            <div className="wrapper">
+              <div className="select-container">
+                <label className="form-label">Category:</label>
+                <select
+                  className="form-select"
+                  name="category"
+                  value={project.category}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="quality A">Quality A</option>
+                  <option value="quality B">Quality B</option>
+                  <option value="quality C">Quality C</option>
+                  <option value="quality D">Quality D</option>
+                </select>
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  Priority:
-                  <select
-                    className="form-select"
-                    name="priority"
-                    value={project.priority}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                  </select>
-                </label>
+              {/* Project Priority: */}
+              <div className="select-container">
+                <label className="form-label">Priority:</label>
+                <select
+                  className="form-select"
+                  name="priority"
+                  value={project.priority}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  Department:
-                  <select
-                    className="form-select"
-                    name="department"
-                    value={project.department}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="maintenance">Maintenance</option>
-                    <option value="strategy">Strategy</option>
-                    <option value="finance">Finance</option>
-                    <option value="quality">Quality</option>
-                    <option value="stores">Stores</option>
-                  </select>
-                </label>
+              {/* Project Department: */}
+
+              <div className="select-container">
+                <label className="form-label">Department:</label>
+                <select
+                  className="form-select"
+                  name="department"
+                  value={project.department}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="maintenance">Maintenance</option>
+                  <option value="strategy">Strategy</option>
+                  <option value="finance">Finance</option>
+                  <option value="quality">Quality</option>
+                  <option value="stores">Stores</option>
+                </select>
               </div>
             </div>
 
-            <div className="row md-4 mt-4">
-              <div className="col">
-                <label className="form-label">
-                  Location:
-                  <select
-                    className="form-select"
-                    name="location"
-                    value={project.location}
-                    onChange={handleInput}
-                    required
-                  >
-                    <option value="pune">Pune</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="nashik">Nashik</option>
-                    <option value="thane">Thane</option>
-                    <option value="delhi">Delhi</option>
-                  </select>
-                </label>
+            {/* Project Location: */}
+
+            <div className="wrapper">
+              <div className="select-container">
+                <label className="">Location:</label>
+                <select
+                  className="form-select"
+                  name="location"
+                  value={project.location}
+                  onChange={handleInput}
+                  required
+                >
+                  <option value="pune">Pune</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="nashik">Nashik</option>
+                  <option value="thane">Thane</option>
+                  <option value="delhi">Delhi</option>
+                </select>
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  Start Date:
-                  <input
-                    name="startDate"
-                    type="date"
-                    className="form-control"
-                    value={project.startDate}
-                    onChange={handleInput}
-                    required
-                  />
-                </label>
+              {/* Project Start Date: */}
+
+              <div className="date-container">
+                <label className="form-label">Start Date:</label>
+                <input
+                  name="startDate"
+                  type="date"
+                  className="date-input"
+                  value={project.startDate}
+                  onChange={handleInput}
+                  required
+                />
               </div>
 
-              <div className="col">
-                <label className="form-label">
-                  End Date:
-                  <input
-                    name="endDate"
-                    type="date"
-                    className="form-control"
-                    value={project.endDate}
-                    onChange={handleInput}
-                    required
-                  />
-                </label>
+              {/* Project End Date: */}
+
+              <div className="date-container">
+                <label className="form-label">End Date:</label>
+
+                <input
+                  name="endDate"
+                  type="date"
+                  className="date-input"
+                  value={project.endDate}
+                  onChange={handleInput}
+                  required
+                />
+            {dateError && <p className="text-danger">{dateError}</p>}
               </div>
             </div>
 
-            <div className="col md-6">
-              <div className="col mt-4">
-                <label className="form-label ">
-                  Status:
-                  <span className="form-text status"> {project.status}</span>
-                </label>
+            {/* Project Status and Button: */}
+
+            <div className="button-container">
+              <div className="status-container">
+                <label className="form-label status-label">Status:</label>
+                <span className="form-text status-text"> {project.status}</span>
               </div>
 
-              <div className="col mt-4">
-                <button type="submit" className="btn btn-primary">
+              <div className="btn-2">
+                <button type="submit" className="save-button">
                   Save Project
                 </button>
               </div>

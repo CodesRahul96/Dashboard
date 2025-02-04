@@ -1,15 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
-// const API = import.meta.env.VITE_APP_URI_API;
-const API = "http://localhost:5000";
+const URI = "http://localhost:5000";
 
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [project, setProject] = useState([]);
   const authentication = `Bearer ${token}`;
 
   const storeTokenInLS = (serverToken) => {
@@ -18,18 +16,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   let isLoggedIn = !!token;
-  // console.log(isLoggedIn);
 
   const LogOutUser = () => {
     setToken("");
     return localStorage.removeItem("token");
   };
 
-  // Authenticaton with jwt - to get user data
   const userAuthentication = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${API}/auth/user`, {
+      const response = await fetch(`${URI}/auth/user`, {
         method: "GET",
         headers: {
           Authorization: authentication,
@@ -37,41 +33,21 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.ok) {
-        // console.log(response);
         const data = await response.json();
-        // console.log("user data", data.userData);
         setUser(data.userData);
-        setIsLoading(false);
       }
     } catch (error) {
-      // console.log("Error, fetching user data");
-    }
-  };
-
-  // fetching service data from backend
-
-  const getProjects = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${API}/api/projects`, {
-        method: "POST",
-      });
-      if (response.ok) {
-        // console.log(response);
-        const data = await response.json();
-        console.log("user data", data.msg);
-        setProject(data.msg);
-        setIsLoading(false);
-      }
-    } catch (error) {
-      console.log(`Fetching Services from server: ${error}`);
+      console.error("Error fetching user data", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getProjects();
-    userAuthentication();
-  }, []);
+    (async () => {
+      await userAuthentication();
+    })();
+  }, [token]); 
 
   return (
     <AuthContext.Provider
@@ -80,10 +56,9 @@ export const AuthProvider = ({ children }) => {
         LogOutUser,
         isLoggedIn,
         user,
-        project,
         authentication,
         isLoading,
-        API
+        URI,
       }}
     >
       {children}
@@ -91,7 +66,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const authContextValue = useContext(AuthContext);
   if (!authContextValue) {

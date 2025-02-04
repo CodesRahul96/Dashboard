@@ -1,19 +1,21 @@
 import "./login.css";
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../assets/Logo.svg";
+import BGLOGIN from "../../assets/login-bg-1.svg";
+import Hide from "../../assets/hide-password.svg";
+import Show from "../../assets/show-password.svg";
+import Oval from "../../assets/Oval.svg";
 import { useAuth } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
-  const { API, storeTokenInLS } = useAuth();
+  const { URI, storeTokenInLS } = useAuth();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  document.title = "Login";
 
   const [user, setUser] = useState({
     email: "",
@@ -41,12 +43,14 @@ export const Login = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const validDomains = [".com", ".in", ".org"];
 
-    if (!emailRegex.test(user.email)) {
-      setEmailError("Please enter a valid credentials");
+    if (!user.email) {
+      setEmailError("Email is required");
+    } else if (!emailRegex.test(user.email)) {
+      setEmailError("Please enter a valid email address");
     } else {
       const domain = user.email.substring(user.email.lastIndexOf("."));
       if (!validDomains.includes(domain)) {
-        setEmailError("Invalid credentials!");
+        setEmailError("Enter valid email");
       } else {
         setEmailError("");
       }
@@ -54,8 +58,8 @@ export const Login = () => {
   };
 
   const validatePassword = () => {
-    if (user.password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long.");
+    if (!user.password) {
+      setPasswordError("Password is required");
     } else {
       setPasswordError("");
     }
@@ -68,11 +72,11 @@ export const Login = () => {
     validatePassword();
 
     if (emailError || passwordError) {
-      toast.error("Enter valid credentials");
+      toast.error("Invalid credintial");
       return;
     }
 
-    const URL = `${API}/auth/login`;
+    const URL = `${URI}/auth/login`;
 
     try {
       const response = await fetch(URL, {
@@ -94,7 +98,7 @@ export const Login = () => {
         });
 
         toast.success("Login Successful");
-        navigate("/projects");
+        navigate("/");
       } else {
         toast.error(
           res_data.extraDetails ? res_data.extraDetails : res_data.message
@@ -107,61 +111,81 @@ export const Login = () => {
 
   return (
     <div className="loginSection">
-      <div className="loginTop">
-      <div className="loginLogo mb-4 ">
-        <img className="mb-4" src={Logo} alt="logo" />
-        <br />
-        <span className="text">Online Project Management</span>
-      </div>
-      </div>
-      <div className="loginContainer">
-        <h5 className="text-center mt-3 mb-4 text-secondary">
-          Login to get started
-        </h5>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            type="text"
-            id="email"
-            className="form-control"
-            name="email"
-            value={user.email}
-            onChange={handleInput}
-            onBlur={validateEmail}
-          />
-          {/* {emailError && <p className="text-danger">{emailError}</p>} */}
+      {/* Top */}
+      <div className="loginTopContainer">
+        <div className="ovalContainer">
+          <img src={Oval} alt="oval" />
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password:
-          </label>
-          <div className="input-group">
+        <div className="loginContent1">
+          <img className="logo" src={Logo} alt="logo" />
+          <span className=".online-project-manag">
+            Online Project Management
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom */}
+      <div className="loginBottomContainer">
+        <div className="loginContent2">
+          <img className="logo" src={Logo} alt="logo" />
+          <span className=".online-project-manag">
+            Online Project Management
+          </span>
+        </div>
+        <div className="formContainer">
+          <span className="login-to-get-started">Login to get started</span>
+          {/* Email Input */}
+          <div className="emailContainer ">
+            <label htmlFor="email" className="email">
+              Email
+            </label>
             <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              className="form-control"
-              name="password"
-              value={user.password}
+              type="text"
+              id="email"
+              className="emailInput"
+              name="email"
+              value={user.email}
               onChange={handleInput}
-              onBlur={validatePassword}
+              onBlur={validateEmail}
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="btn btn-outline-secondary"
-            >
-              <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-            </button>
+            {emailError && <p className="text-danger">{emailError}</p>}
           </div>
-          <div className="forgetPass mb-3 text-primary">Forget Password?</div>
-          <br />
-        </div>
-        <div className="text-center">
-          <button onClick={handleSubmit} className="btn btn-primary ">
-            Login
-          </button>
+          {/* Password Input */}
+          <div className="passwordContainer">
+            <label htmlFor="password" className="password">
+              Password
+            </label>
+            <div className="rectangle-copy passwordInput">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                className="passwordInput"
+                name="password"
+                value={user.password}
+                onChange={handleInput}
+                onBlur={validatePassword}
+              />
+              <span
+                role="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className=""
+              >
+                <img
+                  src={showPassword ? `${Show}` : `${Hide}`}
+                  className="eye-1"
+                  alt={showPassword ? "show-password" : "hide-password"}
+                />
+              </span>
+
+            </div>
+              {passwordError && <p className="text-danger">{passwordError}</p>}
+            <span className="forgot-password">Forget Password?</span>
+          </div>
+          <div className="rectangle">
+            <span onClick={handleSubmit} className="login ">
+              Login
+            </span>
+          </div>
         </div>
       </div>
     </div>

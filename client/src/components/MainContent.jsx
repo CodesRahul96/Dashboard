@@ -2,9 +2,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import CreateProject from "../pages/CreateProject/CreateProject";
-import { Project } from "../pages/project/Project";
-import Dashboard from "./dashboard/Dashboard";
+import Project from "../pages/project/Project";
+import Dashboard from "../pages/dashboard/Dashboard";
 import { Logout } from "../pages/Login/Logout";
+import { ErrorPage } from "../pages/ErrorPage";
+import Counter from "../pages/dashboard/Counter/Counter";
 
 function MainContent() {
   return (
@@ -14,6 +16,8 @@ function MainContent() {
         <Route path="/create" element={<CreateProject />} />
         <Route path="/projects" element={<Project />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/counter" element={<Counter />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

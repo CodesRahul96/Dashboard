@@ -1,11 +1,15 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,600;1,500&display=swap');
+
+body, .app{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* background-color:#F3F5F7; */
 }
 
 .main-content {
-  margin-left: 80px;
+  margin-left: 70px;
 }
 
 /* Media query for mobile view */
@@ -14,113 +18,9 @@ body {
     margin-left: 0;
     padding: 0;
   }
+
+  .toastBody{
+    width: 100%;
+  }
   }
 
-
-
-
-
-/* Card Css */
-.contactContainer {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.contactCard {
-  display: inline-block;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  box-shadow: 0 2px 2px #ccc;
-  width: 300px;
-  padding: 20px;
-  margin: 20px;
-}
-
-
-.priorityItems{
-  text-transform: capitalize;
-}
-
-
-
-/* Project.css */
-
-.topProjectContainer{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Container styles to center the content */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; /* Adjust the height as needed */
-}
-
-/* Styles for the topTable */
-.topTable {
-  display: flex;
-  justify-content: space-between;
-  width: 90%; /* Adjust the width as needed */
-  margin-bottom: 20px;
-}
-
-/* Add this to your existing CSS file or create a new one */
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination {
-  list-style: none;
-  display: flex;
-  gap: 5px;
-}
-
-.pagination li {
-  cursor: pointer;
-  padding: 5px 10px;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.pagination li.active {
-  background-color: #007bff;
-  color: #fff;
-}
-
-
-/* Styles for the action buttons */
-button {
-  margin-right: 5px;
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-
-#searchInput {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-.projectName {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}

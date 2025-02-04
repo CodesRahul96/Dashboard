@@ -1,6 +1,6 @@
 // src/components/Sidebar.js
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Route, useLocation } from "react-router-dom";
 import Dashboard from "../../assets/Dashboard.svg";
 import ProjectList from "../../assets/Project-list.svg";
 import CreateProject from "../../assets/create-project.svg";
@@ -14,7 +14,7 @@ function Sidebar() {
   const location = useLocation();
 
   const isActive = (path) => {
-    return location.pathname === path ? 'active' : '';
+    return location.pathname === path ? "active" : "";
   };
 
   const getIcon = (path, activeIcon, inactiveIcon) => {
@@ -26,31 +26,40 @@ function Sidebar() {
       <div className="logo"></div>
       <div className="sidebaritems">
         <ul>
-          <li className={isActive('/')}>
+          <li className={isActive("/")}>
             <Link to="/">
-              <div className="sideLine"></div>
-              <img src={getIcon('/', DashboardActive, Dashboard)} alt="dash" />
+              <div className="sideLineUp"></div>
+              <img src={getIcon("/", DashboardActive, Dashboard)} alt="dash" />
+              <div className="sideLineDown"></div>
             </Link>
           </li>
-          <li className={`${isActive('/projects')} projects-li`}>
+          <li className={`${isActive("/projects")} projects-li`}>
             <Link to="/projects">
-            <div className="sideLine"></div>
-              <img src={getIcon('/projects', ProjectListActive, ProjectList)} alt="ProjectList" />
+              <div className="sideLineUp"></div>
+              <img
+                className="project-list"
+                src={getIcon("/projects", ProjectListActive, ProjectList)}
+                alt="ProjectList"
+              />
+              <div className="sideLineDown"></div>
             </Link>
           </li>
           <hr className="separator" />
-          <li className={isActive('/create')}>
+          <li className={isActive("/create")}>
             <Link to="/create">
-            <div className="sideLine"></div>
-              <img src={getIcon('/create', CreateProjectActive, CreateProject)} alt="CreateProject" />
+              <div className="sideLineUp"></div>
+              <img
+                className="create-project"
+                src={getIcon("/create", CreateProjectActive, CreateProject)}
+                alt="CreateProject"
+              />
+              <div className="sideLineDown"></div>
             </Link>
           </li>
         </ul>
       </div>
       <div className="logout">
-        <Link to="/logout">
-          <img src={Logout} alt="Logout" />
-        </Link>
+      <Link to="/logout"><img src={Logout} alt="Logout" /></Link>
       </div>
     </div>
   );

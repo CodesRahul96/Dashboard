@@ -7,20 +7,21 @@ import { AuthProvider } from "./store/auth.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <App />
       <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
           draggable
-          pauseOnHover
+          pauseOnHover={false}
           theme="colored"
           bodyClassName="toastBody"
         />

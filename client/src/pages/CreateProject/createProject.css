@@ -1,134 +1,313 @@
-.createDashboard{
+.createDashboard {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  display: block;
   align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-image: url(../../assets/Header-bg.svg);
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: top;
+
+  .createContainer {
+    /* Topbar Content */
+    .createContent {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0px 10px;
+      background-image: url(../../assets/Header-bg.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: left;
+
+      .createProjectName {
+        display: flex;
+
+        .name {
+          color: #ffffff;
+          font-family: "Nunito Sans";
+          font-size: 24px;
+          font-weight: bold;
+          letter-spacing: 0;
+          line-height: 30px;
+        }
+      }
+
+      .createProjectName,
+      .createLogout {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        img {
+          display: none;
+        }
+      }
+
+      .backButton {
+        display: block;
+      }
+
+      .backButton img {
+        display: block;
+        width: 55px;
+        height: 20px;
+      }
+
+      .logoContainer {
+        padding: 10px;
+        margin-right: 5rem;
+
+        img {
+          height: 53px;
+          width: 60px;
+        }
+      }
+    }
+
+    .form-wrapper {
+      width: 100%;
+      height: 100%;
+      padding: 0rem 3rem;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .form-container {
+        width: 100%;
+        height: 768px;
+        border-radius: 10px;
+        /* border: 1px solid red; */
+        background-color: #ffffff;
+        box-shadow: 0 7px 18px 0 rgba(2, 118, 179, 0.13);
+      }
+
+      .name-container {
+        display: flex;
+        flex-direction: column;
+        flex: 2;
+
+        input {
+          border: 1px solid silver;
+          border-radius: 6px;
+          width: 100%;
+          height: 4rem;
+          font-size: 1.2rem;
+          padding: 10px;       
+        }
+        .error{
+          border: 1px solid red;
+        }
+      }
+
+      .btn-1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .select-container {
+        flex: 1;
+        width: 100%;
+
+        select {
+          width: 100%;
+          height: 3rem;
+        }
+      }
+
+      .date-container {
+        width: 100%;
+        flex: 1;
+
+        input {
+          border: 1px solid silver;
+          border-radius: 10px;
+          width: 100%;
+          height: 3rem;
+          outline: none;
+          padding: 0px 10px;
+        }
+      }
+    }
+    .wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      justify-content: space-around;
+      flex-direction: row;
+      margin-right: 3rem;
+      flex: 1;
+      padding: 10px;
+    }
+
+    form-label{
+      color: #767676;
+      font-family: "Nunito Sans";
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 19px;
+    }
+
+    .text-danger {
+      text-align: start;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .status-container {
+        width: 100%;
+        text-align: center;
+        margin-top: 3rem;
+        
+
+        .status-text {
+          color: #171616;
+          font-family: "Nunito Sans";
+          font-size: 16px;
+          font-weight: bold;
+          letter-spacing: 0;
+          line-height: 22px;
+        }
+      }
+
+      .btn-2 {
+        display: none;
+      }
+    }
+
+    .save-button {
+      padding: 10px 30px;
+      border-radius: 20px;
+      color: #fff;
+      background-color: #025aab;
+      border: none;
+    }
+    .save-button:hover {
+      color: #025aab;
+      background-color: #fff;
+      border: 1px solid #025aab;
+    }
+  }
 }
-.createContainer {
-    padding: 40px 60px;
-  }
-  .topbarContainer h2 {
-    color: #fff;
-  }
-  
-  .topbarContainer > .logo {
-    position: absolute;
-    top: 0;
-    right: 50%;
-  }
-  .topbarContent {
-    display: flex;
-    align-items: center;
-  }
-  .backButton img {
-    width: 55px;
-    height: 30px;
-  }
-  
-  .formContainer{
-    position: relative;
-    margin-left: 80px;
-    height: 100%;
-    width: 90%;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  }
 
-  .formContainer form {
-    margin: 20px;
-  }
-  .formContainer form input{
-    width: 25rem;
-  }
-  .formContainer form .projectName{
-    width: 40rem;
-    height: 4rem;
-  }
-  .formContainer form select{
-    width: 25rem;
-  }
-  .formContainer form button{
-    position: absolute;
-    top: 5%;
-    right: 5%;
-  }
-  .formContainer form .status {
-    font-weight: bold;
-  }
-
-  .crateLogout{
-    display: none;
-  }
-
-  
 /* Media query for mobile view */
 @media (max-width: 768px) {
-  .createContainer {
-    margin: 0;
-    padding: 10px 0px;
-  }
+  .createDashboard {
+    .createContainer {
+      .createContent {
+        display: flex;
+        height: 60px;
+        justify-content: space-between;
+        flex-direction: row;
+        color: #fff;
+        padding: 5px 10px;
+        /* margin-bottom: 2rem; */
 
-  .formContainer{
-    width: 100%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-left: 0;
-    margin-bottom: 7rem;
-    box-shadow: none;
-  }
-  .formContainer form{
-    margin: 20px;
-  }
-  
-  .formContainer form .projectName{
-    width: 90vw;
-    padding: 18px;
-  }
-  .formContainer form select{
-    width: 90vw;
-    padding: 18px;
-  }
-  .formContainer form .col{
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-  .formContainer form button{
-    width: 90vw;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    right: 0;
-    top: 0;
-  }
-  .formContainer form .status {
-    font-weight: bold;
-    align-items: center;
-    justify-content: center;
-  }
+        .createProjectName {
+          display: flex;
+          align-items: center;
+          flex-direction: row;
 
-  .formContainer form input[type=date]{
-    width: 90vw;
-    padding: 18px;
-  }
-  .crateLogout {
-    display: block;
-    position: absolute;
-    top: 5%;
-    right: 3%;
-    /* background-color: rgb(110, 95, 95); */
-}
-.crateLogout img{
-  width: 40px;
-}
+          .backButton {
+            display: block;
 
+            img {
+              width: 55px;
+              height: 20px;
+            }
+          }
+        }
+
+        .logoContainer {
+          img {
+            display: none;
+          }
+        }
+        .createLogout {
+          img {
+            display: block;
+            height: 30px;
+            filter: brightness(0) invert(1);
+          }
+        }
+        .createLogout:hover {
+          img {
+            filter: brightness(0) invert(0);
+          }
+        }
+      }
+
+      .form-wrapper {
+        padding: 0rem 1rem;
+
+        .form-container {
+          height: 100%;
+        }
+
+        .name-container {
+          flex-direction: column;
+
+          input {
+            height: 5rem;
+            font-size: 1.2rem;
+          }
+        }
+
+        .btn-1 {
+          display: none;
+        }
+
+        .select-container {
+          width: 100%;
+
+          select {
+            font-size: 1.2rem;
+            width: 100%;
+            height: 4rem;
+          }
+        }
+        .date-container {
+          width: 100%;
+
+          input {
+            font-size: 1.2rem;
+            height: 4rem;
+          }
+        }
+
+        .button-container {
+          margin-bottom: 7rem;
+          .status-container {
+            width: 100%;
+            text-align: center;
+          }
+
+          .btn-2 {
+            display: flex;
+            width: 100%;
+            height: 40px;
+
+            button {
+              height: 3rem;
+              font-size: 18px;
+              width: 100%;
+            }
+          }
+        }
+
+        .wrapper {
+          flex-direction: column;
+          margin-right: 0;
+          align-items: normal;
+        }
+      }
+    }
+  }
 }

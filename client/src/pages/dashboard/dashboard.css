@@ -1,0 +1,249 @@
+.dashboard {
+  width: 100dvw;
+  height: 100%;
+  display: block;
+  align-items: center;
+  /* padding: 0px 15px; */
+  /* background-image: url(../../assets/Header-bg.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top; */
+}
+
+.dash-bg{
+  width: 100%;
+  height: 225px;
+  background-image: url(/src/assets/Header-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+  position: absolute;
+  top: 0;
+  left: 70px;
+  z-index: -1;
+}
+
+/* Topbar Content */
+.dashContent {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 10px;
+  /* background-image: url(../../assets/Header-bg.svg); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+
+  .name {
+    color: #ffffff;
+    font-family: "Nunito Sans";
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 30px;
+  }
+
+  .dashName,
+  .crateLogout {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .backButton {
+    display: none;
+  }
+
+  .backButton img {
+    display: block;
+      width: 55px;
+      height: 20px;
+  }
+
+  .logoContainer {
+    padding: 10px;
+    margin-right: 5rem;
+
+    img {
+      height: 53px;
+      width: 60px;
+    }
+  }
+  .dashLogout img {
+    display: none;
+  }
+}
+
+/* Dashboard Counters */
+.dashContainer {
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  /* background: transparent; */
+  /* background-color: transparent; */
+  /* padding: 15px 0px; */
+
+  .counters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on android/iOS devices */
+
+    .counter {
+      display: flex;
+      align-items: start;
+      justify-content: flex-start;
+      flex-direction: column;
+      background-color: #fff;
+      height: 100px;
+      width: 250px;
+      border-left: 8px solid #0cc9e8;
+      padding: 10px;
+      margin-right: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+      .total-projects {
+        height: 20px;
+        width: 110px;
+        color: #474d52;
+        font-family: "Nunito Sans";
+        font-size: 15px;
+        letter-spacing: 0;
+        line-height: 20px;
+      }
+
+      .total-projects-count {
+        height: 54px;
+        width: 102px;
+        color: #474d52;
+        font-family: "Nunito Sans";
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 54px;
+      }
+    }
+  }
+}
+
+/* chart */
+.chart-container {
+  padding: 0px 15px;
+  margin-top: 2rem;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+
+  .department-wise {
+    height: 27px;
+    width: 100%;
+    color: #010202;
+    font-family: "Nunito Sans";
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 27px;
+    margin-bottom: 1rem;
+  }
+
+  .chart {
+    width: 635px;
+    height: 387px;
+    border-radius: 10px;
+    background-color: #ffffff;
+
+    .chart-box {
+      box-shadow: 0 7px 18px 0 rgba(2, 118, 179, 0.13);
+    }
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 0px 0px;
+
+    .dash-bg{
+      display: none;
+      height: 60px;
+      left: 0;
+    }
+
+    .dashContent {
+      background-image: url(../../assets/Header-bg.svg);
+      width: 100%;
+      height: 60px;
+
+      
+
+      .backButton {
+        display: none;
+      }
+      .logoContainer {
+        img {
+          display: none;
+        }
+      }
+      .dashLogout {
+        img {
+          display: block;
+          height: 30px;
+          filter: brightness(0) invert(1);
+        }
+      }
+      .dashLogout:hover {
+        img {
+          filter: brightness(0) invert(0);
+        }
+      }
+    }
+
+    .dashContainer {
+      .counters-container {
+        .counters {
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+
+          .counter {
+            .total-projects {
+              height: 25px;
+              width: 155px;
+              color: #474d52;
+              font-family: "Nunito Sans";
+              font-size: 18px;
+              letter-spacing: 0;
+              line-height: 22px;
+            }
+          }
+        }
+      }
+    }
+
+    .chart-container {
+      padding: 0px 0px;
+      .department-wise{
+        padding: 10px;
+      }
+      .chart {
+        width: 100%;
+        height: 100%;
+        height: 540px;
+        div {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
